@@ -1,5 +1,5 @@
 
-## Apache ORC [VPC Flow Logs](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/flow-logs.html)
+## Apache Orc [VPC Flow Logs](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/flow-logs.html)
 
 Any code, applications, scripts, templates, proofs of concept,
 documentation and other items are provided for illustration purposes only.

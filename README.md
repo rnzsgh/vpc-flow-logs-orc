@@ -34,7 +34,7 @@ Rows: 1mm - Raw text size: 104.7 MB - Apache Orc file is 3.2% smaller than just 
 
 
 | Format          | Compressed |  File        | Method          |
-| ---------------------------- | ------------ | --------------- |
+| --------------- | ---------- | ------------ | --------------- |
 | Compressed Text | 6.2 MB     | raw.txt.gz   | zlib -9         |
 | Apache Orc      | 6.0 MB     | columnar.orc | packed and zlib |
 

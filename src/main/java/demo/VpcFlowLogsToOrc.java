@@ -41,6 +41,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.net.InetAddress;
 
 public class VpcFlowLogsToOrc {
 
@@ -53,8 +54,8 @@ public class VpcFlowLogsToOrc {
     final Configuration conf = new Configuration();
 
     final TypeDescription schema = TypeDescription.createStruct()
-    .addField("version", TypeDescription.createShort())
-    .addField("account_idd", TypeDescription.createLong())
+    .addField("version", TypeDescription.createString())
+    .addField("account_idd", TypeDescription.createString())
     .addField("interface_id", TypeDescription.createString())
     .addField("src_addr", TypeDescription.createString())
     .addField("dst_addr", TypeDescription.createString())
@@ -72,8 +73,8 @@ public class VpcFlowLogsToOrc {
 
     final VectorizedRowBatch batch = schema.createRowBatch();
 
-    final LongColumnVector versionVector = (LongColumnVector) batch.cols[0];
-    final LongColumnVector accountIdVector = (LongColumnVector) batch.cols[1];
+    final BytesColumnVector versionVector = (BytesColumnVector) batch.cols[0];
+    final BytesColumnVector accountIdVector = (BytesColumnVector) batch.cols[1];
     final BytesColumnVector interfaceIdVector = (BytesColumnVector) batch.cols[2];
     final BytesColumnVector srcAddrVector = (BytesColumnVector) batch.cols[3];
     final BytesColumnVector dstAddrVector = (BytesColumnVector) batch.cols[4];
@@ -97,8 +98,8 @@ public class VpcFlowLogsToOrc {
 
       final String [] fields = line.split(" ");
 
-      versionVector.vector[row] = Short.parseShort(fields[0]);
-      accountIdVector.vector[row] = Long.parseLong(fields[1]);
+      versionVector.setVal(row, fields[0].getBytes("UTF8"));
+      accountIdVector.setVal(row, fields[1].getBytes("UTF8"));
       interfaceIdVector.setVal(row, fields[2].getBytes("UTF8"));
 
       if (!line.contains("NODATA") && !line.contains("SKIPDATA")) {

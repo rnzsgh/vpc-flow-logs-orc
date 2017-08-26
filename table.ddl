@@ -1,6 +1,6 @@
 CREATE EXTERNAL TABLE vpc_flow_logs(
-  version SMALLINT,
-  account_id BIGINT,
+  version STRING,
+  account_id STRING,
   interface_id STRING,
   src_addr STRING,
   dst_addr STRING,
